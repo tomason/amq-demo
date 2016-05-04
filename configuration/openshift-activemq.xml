@@ -60,7 +60,7 @@
                     <authorizationMap>
                         <authorizationEntries>
                             <authorizationEntry queue=">" read="admins" write="admins" admin="admins" />
-                            <authorizationEntry queue="PUBLIC.>" read="all" write="all" admins="all" />
+                            <authorizationEntry queue="PUBLIC.>" read="all" write="all" admin="all" />
                             <authorizationEntry queue="USERS.>" read="users" write="users" admin="admins" />
               
                             <authorizationEntry topic="ActiveMQ.Advisory.>" read="all" write="all" admin="all"/>
