@@ -30,8 +30,7 @@ parameters:
   required: false
   description: 'Protocols to configure, separated by commas. Allowed values are: `openwire`, `amqp`, `stomp` and `mqtt`. SSL variants of these protocols will be configured automaticaly.'
 - name: MQ_USERNAME
-  generate: expression
-  from: 'user[a-zA-Z0-9]{3}'
+  value: osUser
   required: false
   description: User name for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.
 - name: MQ_PASSWORD
