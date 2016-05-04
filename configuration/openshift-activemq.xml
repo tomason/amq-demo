@@ -60,10 +60,10 @@
                     <authorizationMap>
                         <authorizationEntries>
                             <authorizationEntry queue=">" read="admins" write="admins" admin="admins" />
-                            <authorizationEntry queue="PUBLIC.>" read="all" write="all" admin="all" />
+                            <authorizationEntry queue="PUBLIC.>" read="admins,users" write="admins,users" admin="asmins,users" />
                             <authorizationEntry queue="USERS.>" read="users" write="users" admin="admins" />
               
-                            <authorizationEntry topic="ActiveMQ.Advisory.>" read="all" write="all" admin="all"/>
+                            <authorizationEntry topic="ActiveMQ.Advisory.>" read="admins,users" write="admins,users" admin="admins,users"/>
                         </authorizationEntries>
                     </authorizationMap>
                 </map>
