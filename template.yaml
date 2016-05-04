@@ -39,6 +39,10 @@ parameters:
   from: '[a-zA-Z0-9]{8}'
   required: false
   description: Password for standard broker user. It is required for connecting to the broker. If left empty, it will be generated.
+- name: VOLUME_CAPACITY
+  value: 512Mi
+  required: true
+  description: Size of persistent storage for database volume.
 - name: AMQ_SECRET
   value: amq-app-secret
   required: true
@@ -106,6 +110,20 @@ objects:
     - imageChange: {}
       type: ImageChange
     - type: ConfigChange
+
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    labels:
+      application: ${APPLICATION_NAME}
+    name: ${APPLICATION_NAME}-amq-claim
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: ${VOLUME_CAPACITY}
+
 
 - apiVersion: v1
   kind: DeploymentConfig
@@ -195,12 +213,18 @@ objects:
           - mountPath: /etc/amq-secret-volume
             name: broker-secret-volume
             readOnly: true
+          - mountPath: /opt/amq/data/kahadb
+            name: ${APPLICATION_NAME}-amq-pvol
+            readOnly: false
         serviceAccount: amq-service-account
         terminationGracePeriodSeconds: 60
         volumes:
         - name: broker-secret-volume
           secret:
             secretName: ${AMQ_SECRET}
+        - name: ${APPLICATION_NAME}-amq-pvol
+          persistentVolumeClaim:
+            claimName: ${APPLICATION_NAME}-amq-claim
     triggers:
     - type: ImageChange
       imageChangeParams:
