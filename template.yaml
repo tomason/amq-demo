@@ -23,6 +23,7 @@ parameters:
   required: true
   description: Git branch/tag reference
 - name: CONTEXT_DIR
+  value: deployment
   required: false
   description: Path within Git project to build; empty for root project directory.
 - name: MQ_PROTOCOL
@@ -47,10 +48,11 @@ parameters:
   required: true
   description: Name of a secret containing SSL related files.
 - name: AMQ_TRUSTSTORE
-  value: broker.ts
+  value: broker.ks
   required: true
   description: SSL trust store filename
 - name: AMQ_TRUSTSTORE_PASSWORD
+  value: amq-demo
   required: false
   description: SSL trust store password
 - name: AMQ_KEYSTORE
@@ -58,6 +60,7 @@ parameters:
   required: true
   description: SSL key store filename
 - name: AMQ_KEYSTORE_PASSWORD
+  value: amq-demo
   required: false
   description: Password for accessing SSL keystore
 - name: AMQ_MESH_DISCOVERY_TYPE
