@@ -3,6 +3,8 @@ package com.redhat;
 import org.apache.activemq.ActiveMQSslConnectionFactory;
 
 import javax.jms.Connection;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
@@ -38,6 +40,19 @@ public class SingleMessage {
 				} finally {
 					producer.close();
 				}
+
+				System.out.println("Creating consumer...");
+				MessageConsumer consumer = session.createConsumer(q);
+				try {
+					Message msg = consumer.receive(1_000L);
+					if (msg != null) {
+						System.out.println("Received message: " + msg.toString());
+					} else {
+						System.out.println("No message received!");
+					}
+				} finally {
+					consumer.close();
+				}
 			} finally {
 				session.close();
 			}
@@ -45,6 +60,7 @@ public class SingleMessage {
 			connection.stop();
 			connection.close();
 		}
+
 	}
 
 }
