@@ -138,7 +138,13 @@ objects:
     selector:
       deploymentConfig: ${APPLICATION_NAME}-amq
     strategy:
-      type: Recreate
+      type: Rolling
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 0
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
     template:
       metadata:
         labels:
